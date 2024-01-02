@@ -45,7 +45,9 @@ class Dream(models.Model):
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
     date = models.DateField()
     price = models.ForeignKey(Price, on_delete=models.CASCADE)
-    attachment = models.FileField(upload_to="attachments/", null=True, blank=True)
+    attachment = models.FileField(
+        upload_to="attachments/", null=True, blank=True)
+
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -56,9 +58,11 @@ class Benefactor(models.Model):
     full_name = models.CharField(max_length=255)
     phone_number = PhoneField(blank=True, help_text='Contact phone number')
     email = models.EmailField(blank=True, null=True)
-    method_of_receipt = models.CharField(max_length=20, choices=METHOD_OF_RECEIPT)
+    method_of_receipt = models.CharField(
+        max_length=20, choices=METHOD_OF_RECEIPT
+    )
     date_execution = models.DateTimeField()
     dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
 
     def __str__(self):
-        return  f"{self.full_name} {self.email} {self.method_of_receipt}"
+        return f"{self.full_name} {self.email} {self.method_of_receipt}"
