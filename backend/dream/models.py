@@ -35,3 +35,12 @@ class Dream(models.Model):
     price = models.ForeignKey(Price, on_delete=models.CASCADE)
     attachment = models.FileField(upload_to="attachments/", null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+
+class Benefactor(models.Model):
+    full_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=13)
+    email = models.CharField(max_length=64)
+    method_of_receipt = models.CharField(max_length=64) #
+    date_execution = models.DateTimeField()
+    dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
