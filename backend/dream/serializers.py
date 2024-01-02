@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from backend.dream.models import Benefactor
+from .models import Benefactor
 
 
 class BenefactorSerializer(serializers.ModelSerializer):
