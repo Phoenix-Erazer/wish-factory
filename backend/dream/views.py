@@ -1,5 +1,3 @@
-from django.urls import reverse
-
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -10,7 +8,6 @@ from .serializers import DreamSerializer, BenefactorSerializer
 
 class DreamViewSet(viewsets.ModelViewSet):
     queryset = Dream.objects.all()
-    serializer_class = DreamSerializer
 
     @action(detail=False, methods=["post"])
     def handle_dream(self, request):
@@ -19,9 +16,9 @@ class DreamViewSet(viewsets.ModelViewSet):
         dream_type = serializer.validated_data.get("dream_type")
 
         if dream_type == "requestor":
-            return Response({"url": reverse("dream_requestor_form")})
+            return DreamSerializer
         elif dream_type == "executor":
-            return Response({"url": reverse("dream_executor_form")})
+            return BenefactorSerializer
         else:
             return Response({"message": "Invalid dream_type"})
 
