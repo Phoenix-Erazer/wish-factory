@@ -6,5 +6,3 @@ class DreamForm(forms.ModelForm):
     class Meta:
         model = Dream
         fields = ["__all__"]
-
-    dream_type = forms.ChoiceField(choices=DREAM_TYPE_CHOICES)
