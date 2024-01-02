@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "dream",
-    "phone_field"
+    "phone_field",
 ]
 
 MIDDLEWARE = [
