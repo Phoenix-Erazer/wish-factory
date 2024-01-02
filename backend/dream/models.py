@@ -12,16 +12,27 @@ DREAM_TYPE_CHOICES = [
     ("to-be", "To-Be"),
 ]
 
+METHOD_OF_RECEIPT = [
+    ("personally", "Personally"),
+    ("indirectly", "Indirect")
+]
+
 
 class Price(models.Model):
     amount = models.FloatField()
     currency = models.CharField(max_length=3)
+
+    def __str__(self):
+        return f"amount:{self.amount}, currency:{self.currency}"
 
 
 class Location(models.Model):
     city = models.CharField(max_length=255)
     region = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.city},{self.region},{self.country}"
 
 
 class Dream(models.Model):
@@ -36,11 +47,17 @@ class Dream(models.Model):
     attachment = models.FileField(upload_to="attachments/", null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.title}, {self.user_name}, {self.user_email}"
+
 
 class Benefactor(models.Model):
     full_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=13)
-    email = models.CharField(max_length=64)
-    method_of_receipt = models.CharField(max_length=64) #
+    email = models.EmailField(blank=True, null=True)
+    method_of_receipt = models.CharField(max_length=20, choices=METHOD_OF_RECEIPT)
     date_execution = models.DateTimeField()
     dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return  f"{self.full_name} {self.email} {self.method_of_receipt}"
