@@ -56,7 +56,7 @@ class Dream(models.Model):
 
 class Benefactor(models.Model):
     full_name = models.CharField(max_length=255)
-    phone_number = PhoneField(blank=True, help_text='Contact phone number')
+    phone_number = PhoneField(blank=True, help_text="Contact phone number")
     email = models.EmailField(blank=True, null=True)
     method_of_receipt = models.CharField(
         max_length=20, choices=METHOD_OF_RECEIPT
