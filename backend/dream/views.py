@@ -8,6 +8,7 @@ from .serializers import DreamSerializer, BenefactorSerializer
 
 class DreamViewSet(viewsets.ModelViewSet):
     queryset = Dream.objects.all()
+    serializer_class = DreamSerializer
 
     @action(detail=False, methods=["post"])
     def handle_dream(self, request):
