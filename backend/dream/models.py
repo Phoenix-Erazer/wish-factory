@@ -19,14 +19,6 @@ METHOD_OF_RECEIPT = [
 ]
 
 
-class Price(models.Model):
-    amount = models.FloatField()
-    currency = models.CharField(max_length=3)
-
-    def __str__(self):
-        return f"amount:{self.amount}, currency:{self.currency}"
-
-
 class Location(models.Model):
     city = models.CharField(max_length=255)
     region = models.CharField(max_length=255)
@@ -44,7 +36,8 @@ class Dream(models.Model):
     user_email = models.EmailField(blank=True, null=True)
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
     date = models.DateField()
-    price = models.ForeignKey(Price, on_delete=models.CASCADE)
+    price = models.FloatField()
+    currency = models.CharField(max_length=3, default="USD")
     attachment = models.FileField(
         upload_to="attachments/", null=True, blank=True)
 
