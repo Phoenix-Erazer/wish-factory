@@ -52,3 +52,14 @@ class DreamViewSet(viewsets.ModelViewSet):
 class BenefactorViewSet(viewsets.ModelViewSet):
     queryset = Benefactor.objects.all()
     serializer_class = BenefactorSerializer
+
+    def perform_create(self, serializer):
+        benefactor_instance = serializer.save()
+
+        related_dream = benefactor_instance.dream
+
+        # Обновляем поле is_activated у связанной Dream
+        related_dream.is_activated = False  # Можно настроить по вашему желанию
+        related_dream.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
