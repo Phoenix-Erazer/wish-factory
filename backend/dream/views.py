@@ -3,7 +3,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Dream, Benefactor, Payment
-from .serializers import DreamSerializer, BenefactorSerializer, PaymentSerializer
+from .serializers import (
+    DreamSerializer,
+    BenefactorSerializer,
+    PaymentSerializer
+)
 
 
 class DreamViewSet(viewsets.ModelViewSet):
@@ -30,7 +34,10 @@ class DreamViewSet(viewsets.ModelViewSet):
             dream.save()
             return Response({"message": "Dream paid successfully"})
         else:
-            return Response({"message": "Payment failed"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"message": "Payment failed"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
     @action(detail=False, methods=["post"])
     def handle_dream(self, request):

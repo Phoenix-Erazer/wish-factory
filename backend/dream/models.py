@@ -21,6 +21,7 @@ METHOD_OF_RECEIPT = [
     ("indirectly", "Indirect")
 ]
 
+
 def not_past_date_validator(value):
     if value < timezone.now():
         raise ValidationError('Date cannot be in the past')
