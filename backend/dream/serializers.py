@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Dream, Benefactor, Location
+from .models import Dream, Benefactor, Location, Payment
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -22,3 +22,9 @@ class BenefactorSerializer(serializers.ModelSerializer):
             "id", "full_name", "phone_number", "email",
             "method_of_receipt", "date_execution", "dream",
         )
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = "__all__"

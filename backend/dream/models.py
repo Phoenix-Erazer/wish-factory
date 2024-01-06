@@ -42,6 +42,7 @@ class Dream(models.Model):
         upload_to="attachments/", null=True, blank=True)
 
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    is_activated = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.title}, {self.user_name}, {self.user_email}"
@@ -59,3 +60,13 @@ class Benefactor(models.Model):
 
     def __str__(self):
         return f"{self.full_name} {self.email} {self.method_of_receipt}"
+
+
+class Payment(models.Model):
+    amount = models.FloatField()
+    currency = models.CharField(max_length=3, default="USD")
+    success = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.id}: ({self.success}) {self.amount}{self.currency}"
