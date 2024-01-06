@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Dream, Benefactor, Payment
+from .models import Dream, Benefactor,
 from .serializers import (
     DreamSerializer,
     BenefactorSerializer,
@@ -65,8 +65,7 @@ class BenefactorViewSet(viewsets.ModelViewSet):
 
         related_dream = benefactor_instance.dream
 
-        # Обновляем поле is_activated у связанной Dream
-        related_dream.is_activated = False  # Можно настроить по вашему желанию
+        related_dream.is_activated = False
         related_dream.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
