@@ -24,7 +24,7 @@ METHOD_OF_RECEIPT = [
 
 def not_past_date_validator(value):
     if value < timezone.now():
-        raise ValidationError('Date cannot be in the past')
+        raise ValidationError("Date cannot be in the past")
 
 
 class Location(models.Model):
@@ -71,10 +71,11 @@ class Benefactor(models.Model):
 
 
 class Payment(models.Model):
+    payer = models.ForeignKey(Benefactor, on_delete=models.CASCADE, default=None)
     amount = models.FloatField()
     currency = models.CharField(max_length=3, default="USD")
     success = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.id}: ({self.success}) {self.amount}{self.currency}"
+        return f"{self.id}: Status:{self.success} - {self.amount}{self.currency} {self.payer}"
