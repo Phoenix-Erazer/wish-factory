@@ -33,7 +33,7 @@ class Location(models.Model):
     country = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"{self.city},{self.region},{self.country}"
+        return f"{self.city}, {self.region}, {self.country}"
 
 
 class Dream(models.Model):
