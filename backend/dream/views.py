@@ -2,10 +2,11 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Dream, Benefactor
+from .models import Dream, Benefactor, Location
 from .serializers import (
     DreamSerializer,
     BenefactorSerializer,
+    LocationSerializer,
     PaymentSerializer
 )
 
@@ -15,7 +16,7 @@ class DreamViewSet(viewsets.ModelViewSet):
     serializer_class = DreamSerializer
 
     @action(detail=True, methods=["post"])
-    def deactivate_dream(self, request, pk=None):
+    def dream_payment(self, request, pk=None):
         dream = self.get_object()
 
         payment_data = {
@@ -30,7 +31,6 @@ class DreamViewSet(viewsets.ModelViewSet):
         payment_instance = payment_serializer.save()
 
         if payment_instance.success:
-            dream.is_activated = False
             dream.save()
             return Response({"message": "Dream paid successfully"})
         else:
@@ -69,3 +69,8 @@ class BenefactorViewSet(viewsets.ModelViewSet):
         related_dream.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class LocationViewSet(viewsets.ModelViewSet):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
