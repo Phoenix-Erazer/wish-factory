@@ -1,4 +1,7 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
+from django.utils import timezone
 from phone_field import PhoneField
 
 USER_TYPE_CHOICES = [
@@ -19,6 +22,11 @@ METHOD_OF_RECEIPT = [
 ]
 
 
+def not_past_date_validator(value):
+    if value < timezone.now():
+        raise ValidationError('Date cannot be in the past')
+
+
 class Location(models.Model):
     city = models.CharField(max_length=255)
     region = models.CharField(max_length=255)
@@ -36,7 +44,7 @@ class Dream(models.Model):
     user_email = models.EmailField(blank=True, null=True)
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
     date = models.DateField()
-    price = models.FloatField()
+    price = models.FloatField(validators=[MinValueValidator(0)])
     currency = models.CharField(max_length=3, default="USD")
     attachment = models.FileField(
         upload_to="attachments/", null=True, blank=True)
@@ -55,7 +63,7 @@ class Benefactor(models.Model):
     method_of_receipt = models.CharField(
         max_length=20, choices=METHOD_OF_RECEIPT
     )
-    date_execution = models.DateTimeField()
+    date_execution = models.DateTimeField(validators=[not_past_date_validator])
     dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
 
     def __str__(self):
