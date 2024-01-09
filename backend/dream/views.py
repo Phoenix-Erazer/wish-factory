@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -11,7 +11,12 @@ from .serializers import (
 )
 
 
-class DreamViewSet(viewsets.ModelViewSet):
+class DreamViewSet(mixins.ListModelMixin,
+                   mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.DestroyModelMixin,
+                   viewsets.GenericViewSet):
     queryset = Dream.objects.all()
     serializer_class = DreamSerializer
 
@@ -56,7 +61,13 @@ class DreamViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 
-class BenefactorViewSet(viewsets.ModelViewSet):
+class BenefactorViewSet(mixins.ListModelMixin,
+                        mixins.CreateModelMixin,
+                        mixins.RetrieveModelMixin,
+                        mixins.UpdateModelMixin,
+                        mixins.DestroyModelMixin,
+                        viewsets.GenericViewSet):
+
     queryset = Benefactor.objects.all()
     serializer_class = BenefactorSerializer
 
@@ -71,6 +82,11 @@ class BenefactorViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class LocationViewSet(viewsets.ModelViewSet):
+class LocationViewSet(mixins.ListModelMixin,
+                      mixins.CreateModelMixin,
+                      mixins.RetrieveModelMixin,
+                      mixins.UpdateModelMixin,
+                      mixins.DestroyModelMixin,
+                      viewsets.GenericViewSet):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
