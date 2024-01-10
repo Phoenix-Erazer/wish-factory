@@ -1,0 +1,59 @@
+.about {
+  width: 1116px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 124px;
+
+  &__title {
+    padding-left: 16px;
+    color:#212529;
+    font-family: 'Inter', sans-serif;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+  }
+
+  &__articles {
+    width: 546px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__article {
+    color:#343A40;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%;
+  }
+
+  &__img {
+    position: absolute;
+    top: 343px;
+    left: 583px;
+    width: 546px;
+    height: 364px;
+  }
+
+  &__figure {
+    &--large {
+      position: absolute;
+      top: 188px;
+      left: 1036px;
+      width: 80px;
+      height: 77px;
+    }
+    &--small {
+      position: absolute;
+      top: 270px;
+      left: 948px;
+      width: 35px;
+      height: 34px;
+    }
+  }
+}
+

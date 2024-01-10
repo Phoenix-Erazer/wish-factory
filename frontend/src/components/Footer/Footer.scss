@@ -1,0 +1,44 @@
+.footer {
+  height: 223px;
+  background-color: #F2F4FF;
+  display: flex;
+  gap: 195px;
+  padding-top: 40px;
+}
+
+.adress {
+  margin: 0 auto;
+
+  &__title {
+    color:#212529;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  &__path {
+    color:#343A40;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%;
+  }
+
+  &__links {
+    width: 221px;
+
+    &--link {
+      text-decoration: underline;
+      color:#343A40;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 150%;
+      margin-right: 5px;
+    }
+  }
+}
