@@ -38,7 +38,7 @@ class Location(models.Model):
 
 class Benefactor(models.Model):
     full_name = models.CharField(max_length=255)
-    age = models.IntegerField()
+
     phone_number = PhoneField(blank=True, help_text="Contact phone number")
     email = models.EmailField(blank=True, null=True)
 
@@ -52,6 +52,7 @@ class Dream(models.Model):
     dream_type = models.CharField(max_length=20, choices=DREAM_TYPE_CHOICES)
     description = models.TextField(max_length=500)
     user_name = models.CharField(max_length=255, blank=True, null=True)
+    user_age = models.IntegerField()
     user_email = models.EmailField(blank=True, null=True)
     request_date = models.DateTimeField(auto_now_add=True, validators=[not_past_date_validator])
     price = models.FloatField(validators=[MinValueValidator(0)])
@@ -65,10 +66,6 @@ class Dream(models.Model):
 
     def __str__(self):
         return f"{self.title}, active: {self.is_activated}"
-
-
-class DreamExecution(models.Model):
-    dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
 
 
 class Execution(models.Model):
