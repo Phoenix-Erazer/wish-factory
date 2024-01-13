@@ -43,7 +43,7 @@ class Dream(models.Model):
     user_name = models.CharField(max_length=255, blank=True, null=True)
     user_email = models.EmailField(blank=True, null=True)
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
-    date = models.DateField()
+    request_date = models.DateField()
     price = models.FloatField(validators=[MinValueValidator(0)])
     currency = models.CharField(max_length=3, default="USD")
     attachment = models.FileField(
@@ -53,29 +53,34 @@ class Dream(models.Model):
     is_activated = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.title}, {self.user_name}, {self.user_email}"
+        return f"{self.title}, active: {self.is_activated}"
 
 
 class Benefactor(models.Model):
     full_name = models.CharField(max_length=255)
+    age = models.IntegerField()
     phone_number = PhoneField(blank=True, help_text="Contact phone number")
     email = models.EmailField(blank=True, null=True)
     method_of_receipt = models.CharField(
         max_length=20, choices=METHOD_OF_RECEIPT
     )
     date_execution = models.DateTimeField(validators=[not_past_date_validator])
-    dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.full_name} {self.email} {self.method_of_receipt}"
 
 
 class Payment(models.Model):
-    payer = models.ForeignKey(Benefactor, on_delete=models.CASCADE, default=None)
+    payer = models.OneToOneField(Benefactor, on_delete=models.CASCADE)
+    dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
     amount = models.FloatField()
     currency = models.CharField(max_length=3, default="USD")
     success = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        self.amount = self.dream.price
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.id}: Status:{self.success} - {self.amount}{self.currency} {self.payer}"
+        return f"Status:{self.success} - {self.amount}{self.currency} {self.payer}"
