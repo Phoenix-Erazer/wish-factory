@@ -5,12 +5,14 @@ from .views import (
     DreamViewSet,
     BenefactorViewSet,
     LocationViewSet,
+    ExecutionViewSet
 )
 
 router = routers.DefaultRouter()
 router.register(r"dreams", DreamViewSet, basename="dream")
 router.register("benefactors", BenefactorViewSet)
 router.register("location", LocationViewSet)
+router.register("execution", ExecutionViewSet)
 
 urlpatterns = [path("", include(router.urls)), ]
 
