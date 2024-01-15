@@ -27,20 +27,12 @@ def not_past_date_validator(value):
         raise ValidationError('Date cannot be in the past')
 
 
-class Location(models.Model):
-    city = models.CharField(max_length=255)
-    region = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.city},{self.region},{self.country}"
-
-
 class Dream(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=500)
     dream_type = models.CharField(max_length=20, choices=DREAM_TYPE_CHOICES)
     user_name = models.CharField(max_length=255, blank=True, null=True)
+    user_age = models.IntegerField()
     user_email = models.EmailField(blank=True, null=True)
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
     date = models.DateField()
@@ -49,7 +41,9 @@ class Dream(models.Model):
     attachment = models.FileField(
         upload_to="attachments/", null=True, blank=True)
 
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    city = models.CharField(max_length=255)
+    region = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
     is_activated = models.BooleanField(default=True)
 
     def __str__(self):
@@ -65,9 +59,6 @@ class Benefactor(models.Model):
     )
     date_execution = models.DateTimeField(validators=[not_past_date_validator])
     dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.full_name} {self.email} {self.method_of_receipt}"
 
 
 class Payment(models.Model):

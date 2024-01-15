@@ -2,11 +2,10 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Dream, Benefactor, Location
+from .models import Dream, Benefactor
 from .serializers import (
     DreamSerializer,
     BenefactorSerializer,
-    LocationSerializer,
     PaymentSerializer
 )
 
@@ -69,8 +68,3 @@ class BenefactorViewSet(viewsets.ModelViewSet):
         related_dream.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-class LocationViewSet(viewsets.ModelViewSet):
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
