@@ -71,6 +71,7 @@ class BenefactorViewSet(viewsets.ModelViewSet):
             related_dream.save()
         elif benefactor_instance.method_of_receipt == "indirectly":
             related_dream.status = "reserved"
+
             payment_data = {
                 "amount": related_dream.price,
                 "currency": related_dream.currency,
@@ -85,7 +86,6 @@ class BenefactorViewSet(viewsets.ModelViewSet):
             if payment_instance.success:
                 related_dream.status = "fulfilled"
                 related_dream.is_activated = False
-                payment_instance.save()
 
         related_dream.save()
 
@@ -103,7 +103,7 @@ class DonateViewSet(viewsets.ModelViewSet):
         )
 
         total_amount_by_currency = {
-            entry['currency']: entry["total_amount"]
+            entry["currency"]: entry["total_amount"]
             for entry in total_amount_data
         }
 
