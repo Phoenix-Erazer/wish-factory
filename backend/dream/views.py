@@ -1,12 +1,14 @@
-from rest_framework import viewsets, status
+from django.db.models import Sum, F
+from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Dream, Benefactor
+from .models import Dream, Benefactor, Payment, Donate
 from .serializers import (
     DreamSerializer,
     BenefactorSerializer,
-    PaymentSerializer
+    PaymentSerializer,
+    DonateSerializer
 )
 
 
@@ -21,9 +23,8 @@ class DreamViewSet(viewsets.ModelViewSet):
         payment_data = {
             "amount": dream.price,
             "currency": dream.currency,
+            "success": True
         }
-
-        payment_data["success"] = True
 
         payment_serializer = PaymentSerializer(data=payment_data)
         payment_serializer.is_valid(raise_exception=True)
@@ -38,7 +39,7 @@ class DreamViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post", "put"])
     def handle_dream(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -64,7 +65,51 @@ class BenefactorViewSet(viewsets.ModelViewSet):
 
         related_dream = benefactor_instance.dream
 
-        related_dream.is_activated = False
+        if benefactor_instance.method_of_receipt == "personally":
+            related_dream.status = "fulfilled"
+            related_dream.is_activated = False
+            related_dream.save()
+        elif benefactor_instance.method_of_receipt == "indirectly":
+            related_dream.status = "reserved"
+            payment_data = {
+                "amount": related_dream.price,
+                "currency": related_dream.currency,
+                "success": True,
+                "benefactor": benefactor_instance,
+            }
+
+            payment_serializer = PaymentSerializer(data=payment_data)
+            payment_serializer.is_valid(raise_exception=True)
+            payment_instance = payment_serializer.save()
+
+            if payment_instance.success:
+                related_dream.status = "fulfilled"
+                related_dream.is_activated = False
+                payment_instance.save()
+
         related_dream.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class DonateViewSet(viewsets.ModelViewSet):
+    queryset = Donate.objects.all()
+    serializer_class = DonateSerializer
+
+    @action(detail=False, methods=["get"])
+    def get_total_amount(self, request):
+        total_amount_data = Donate.objects.values("currency").annotate(
+            total_amount=Sum(F("amount"))
+        )
+
+        total_amount_by_currency = {
+            entry['currency']: entry["total_amount"]
+            for entry in total_amount_data
+        }
+
+        return Response({"total_amount_by_currency": total_amount_by_currency})
+
+
+class PaymentViewSet(viewsets.ModelViewSet):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer

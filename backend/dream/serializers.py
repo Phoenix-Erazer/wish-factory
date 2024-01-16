@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Dream, Benefactor, Payment
+from .models import Dream, Benefactor, Payment, Donate
 
 
 class DreamSerializer(serializers.ModelSerializer):
@@ -9,7 +9,7 @@ class DreamSerializer(serializers.ModelSerializer):
         fields = (
             "id", "title", "description", "dream_type", "user_name",
             "user_age", "user_email", "user_type", "date", "price",
-            "currency", "attachment", "city", "region", "country",
+            "currency", "attachment", "city", "region", "status",
             "is_activated",
         )
 
@@ -24,10 +24,18 @@ class BenefactorSerializer(serializers.ModelSerializer):
         )
 
 
+class DonateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Donate
+        fields = (
+            "id", "amount", "currency",
+        )
+
+
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = (
-            "id", "amount", "currency",
+            "id", "executor", "dream", "amount", "currency",
             "success", "timestamp",
         )
