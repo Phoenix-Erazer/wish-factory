@@ -21,6 +21,12 @@ METHOD_OF_RECEIPT = [
     ("indirectly", "Indirect")
 ]
 
+STATUS = [
+    ("unfulfilled", "Unfulfilled"),
+    ("fulfilled", "Fulfilled"),
+    ("reserved", "Reserved"),
+]
+
 
 def not_past_date_validator(value):
     if value < timezone.now():
@@ -43,7 +49,7 @@ class Dream(models.Model):
 
     city = models.CharField(max_length=255)
     region = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, choices=STATUS, default="unfulfilled")
     is_activated = models.BooleanField(default=True)
 
     def __str__(self):
@@ -62,6 +68,8 @@ class Benefactor(models.Model):
 
 
 class Payment(models.Model):
+    executor = models.ForeignKey(Benefactor, on_delete=models.CASCADE)
+    dream = models.OneToOneField(Dream, on_delete=models.CASCADE)
     amount = models.FloatField()
     currency = models.CharField(max_length=3, default="USD")
     success = models.BooleanField(default=False)
