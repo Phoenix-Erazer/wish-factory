@@ -96,7 +96,7 @@ class Payment(models.Model):
     dream = models.OneToOneField(Dream, on_delete=models.CASCADE, related_name="payments")
     amount = models.FloatField()
     currency = models.CharField(max_length=3, default="USD")
-    success = models.BooleanField(default=False)
+    success = models.BooleanField(default=None)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
