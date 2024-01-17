@@ -77,7 +77,10 @@ class Benefactor(models.Model):
         max_length=20, choices=METHOD_OF_RECEIPT
     )
     date_execution = models.DateTimeField(validators=[not_past_date_validator])
-    dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
+    dream = models.ForeignKey(Dream, on_delete=models.CASCADE, related_name="benefactors")
+
+    def __str__(self):
+        return f"{self.full_name} {self.dream.title}"
 
 
 class Donate(models.Model):
