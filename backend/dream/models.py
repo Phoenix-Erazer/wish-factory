@@ -92,8 +92,8 @@ class Donate(models.Model):
 
 
 class Payment(models.Model):
-    executor = models.ForeignKey(Benefactor, on_delete=models.CASCADE)
-    dream = models.OneToOneField(Dream, on_delete=models.CASCADE)
+    executor = models.ForeignKey(Benefactor, on_delete=models.CASCADE, related_name="payments")
+    dream = models.OneToOneField(Dream, on_delete=models.CASCADE, related_name="payments")
     amount = models.FloatField()
     currency = models.CharField(max_length=3, default="USD")
     success = models.BooleanField(default=False)
