@@ -73,6 +73,9 @@ class Benefactor(models.Model):
     date_execution = models.DateTimeField(validators=[not_past_date_validator])
     dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"Full name: {self.full_name}, email: {self.email} - dream: {self.dream.title}"
+
 
 class Payment(models.Model):
     amount = models.FloatField()
