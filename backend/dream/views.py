@@ -16,29 +16,6 @@ class DreamViewSet(viewsets.ModelViewSet):
     queryset = Dream.objects.all()
     serializer_class = DreamSerializer
 
-    @action(detail=True, methods=["post"])
-    def dream_payment(self, request, pk=None):
-        dream = self.get_object()
-
-        payment_data = {
-            "amount": dream.price,
-            "currency": dream.currency,
-            "success": True
-        }
-
-        payment_serializer = PaymentSerializer(data=payment_data)
-        payment_serializer.is_valid(raise_exception=True)
-        payment_instance = payment_serializer.save()
-
-        if payment_instance.success:
-            dream.save()
-            return Response({"message": "Dream paid successfully"})
-        else:
-            return Response(
-                {"message": "Payment failed"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
     @action(detail=False, methods=["post", "put"])
     def handle_dream(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -68,24 +45,9 @@ class BenefactorViewSet(viewsets.ModelViewSet):
         if benefactor_instance.method_of_receipt == "personally":
             related_dream.status = "fulfilled"
             related_dream.is_activated = False
-            related_dream.save()
+
         elif benefactor_instance.method_of_receipt == "indirectly":
             related_dream.status = "reserved"
-
-            payment_data = {
-                "amount": related_dream.price,
-                "currency": related_dream.currency,
-                "success": True,
-                "benefactor": benefactor_instance,
-            }
-
-            payment_serializer = PaymentSerializer(data=payment_data)
-            payment_serializer.is_valid(raise_exception=True)
-            payment_instance = payment_serializer.save()
-
-            if payment_instance.success:
-                related_dream.status = "fulfilled"
-                related_dream.is_activated = False
 
         related_dream.save()
 
@@ -113,3 +75,22 @@ class DonateViewSet(viewsets.ModelViewSet):
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+
+    @action(detail=True, methods=["put"])
+    def dream_payment_success(self, request):
+        payment = self.get_object()
+        dream = payment.dream
+
+        if payment.success:
+            dream.status = "fulfilled"
+            dream.is_activated = False
+            dream.save()
+            return Response({"message": "Dream paid successfully"})
+        else:
+            dream.status = "unfulfilled"
+            dream.is_activated = True
+            dream.save()
+            return Response(
+                {"message": "Payment failed"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
