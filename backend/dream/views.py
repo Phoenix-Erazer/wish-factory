@@ -86,7 +86,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
             dream.is_activated = False
             dream.save()
             return Response({"message": "Dream paid successfully"})
-        else:
+        elif not payment.success and dream.status == "reserved":
             dream.status = "unfulfilled"
             dream.is_activated = True
             dream.save()
