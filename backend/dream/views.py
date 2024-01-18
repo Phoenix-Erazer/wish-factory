@@ -2,6 +2,7 @@ from django.db.models import Sum, F
 from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from copy import deepcopy
 
 from .models import Dream, Benefactor, Payment, Donate
 from .serializers import (
@@ -39,19 +40,59 @@ class BenefactorViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         benefactor_instance = serializer.save()
-
         related_dream = benefactor_instance.dream
 
         if benefactor_instance.method_of_receipt == "personally":
             related_dream.status = "fulfilled"
             related_dream.is_activated = False
-
         elif benefactor_instance.method_of_receipt == "indirectly":
             related_dream.status = "reserved"
 
         related_dream.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def perform_destroy(self, instance):
+        related_dream = instance.dream
+        related_dream.status = "unfulfilled"
+        related_dream.is_activated = True
+        related_dream.save()
+
+        instance.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        partial = kwargs.pop("partial", False)
+
+        original_instance = Benefactor.objects.get(pk=instance.pk)
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+
+        self.perform_update(serializer)
+
+        if instance.dream != original_instance.dream:
+            original_instance.dream.status = "unfulfilled"
+            original_instance.dream.is_activated = True
+            original_instance.dream.save()
+
+        self.perform_update(serializer)
+
+        instance.refresh_from_db()
+        if instance.method_of_receipt == "personally":
+            instance.dream.status = "fulfilled"
+            instance.dream.is_activated = False
+        elif instance.method_of_receipt == "indirectly":
+            instance.dream.status = "reserved"
+        elif not instance.dream.benefactors.exists():
+            instance.dream.status = "unfulfilled"
+            instance.dream.is_activated = True
+
+        instance.dream.save()
+
+        return Response(serializer.data)
 
 
 class DonateViewSet(viewsets.ModelViewSet):
