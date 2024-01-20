@@ -25,10 +25,16 @@ METHOD_OF_RECEIPT = [
     ("indirectly", "Indirect")
 ]
 
+STATUS = [
+    ("unfulfilled", "Unfulfilled"),
+    ("fulfilled", "Fulfilled"),
+    ("reserved", "Reserved"),
+]
+
 
 def not_past_date_validator(value):
     if value < timezone.now():
-        raise ValidationError('Date cannot be in the past')
+        raise ValidationError("Date cannot be in the past")
 
 
 def dream_image_file_path(instance, filename):
@@ -56,7 +62,7 @@ class Dream(models.Model):
 
     city = models.CharField(max_length=255)
     region = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, choices=STATUS, default="unfulfilled")
     is_activated = models.BooleanField(default=True)
 
     def __str__(self):
@@ -71,13 +77,26 @@ class Benefactor(models.Model):
         max_length=20, choices=METHOD_OF_RECEIPT
     )
     date_execution = models.DateTimeField(validators=[not_past_date_validator])
-    dream = models.ForeignKey(Dream, on_delete=models.CASCADE)
+    dream = models.ForeignKey(Dream, on_delete=models.CASCADE, related_name="benefactors")
+
+    def __str__(self):
+        return f"{self.full_name} {self.dream.title}"
+
+
+class Donate(models.Model):
+    amount = models.FloatField(validators=[MinValueValidator(0.01)])
+    currency = models.CharField(max_length=3, default="UAH")
+
+    def __str__(self):
+        return f"{self.id} Donate: {self.amount} {self.currency}"
 
 
 class Payment(models.Model):
+    executor = models.ForeignKey(Benefactor, on_delete=models.CASCADE, related_name="payments")
+    dream = models.OneToOneField(Dream, on_delete=models.CASCADE, related_name="payments")
     amount = models.FloatField()
     currency = models.CharField(max_length=3, default="USD")
-    success = models.BooleanField(default=False)
+    success = models.BooleanField(default=None)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
