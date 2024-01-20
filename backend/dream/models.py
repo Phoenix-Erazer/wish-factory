@@ -90,6 +90,9 @@ class Donate(models.Model):
     def __str__(self):
         return f"{self.id} Donate: {self.amount} {self.currency}"
 
+    def __str__(self):
+        return f"Full name: {self.full_name}, email: {self.email} - dream: {self.dream.title}"
+
 
 class Payment(models.Model):
     executor = models.ForeignKey(Benefactor, on_delete=models.CASCADE, related_name="payments")
