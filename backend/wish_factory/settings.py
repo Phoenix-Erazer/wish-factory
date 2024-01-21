@@ -96,11 +96,9 @@ DATABASES = {
 # }
 
 
-#dj-database-url
-db_from_env = dj_database_url.config(conn_max_age=500)
+# dj-database-url
+db_from_env = dj_database_url.config(conn_max_age=50)
 DATABASES["default"].update(db_from_env)
-
-
 
 
 # Password validation
