@@ -1,0 +1,117 @@
+.wishes {
+  margin-bottom: 150px;
+  &__title {
+    color:#212529;
+    font-family: e-Ukraine;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+    margin-bottom: 32px;
+  }
+  &__sort {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+
+    &--item {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  &__filter {
+    margin-bottom: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &--item {
+      width: 318px;
+      display: flex;
+      justify-content: space-between;
+    }
+    }
+  &__cards {
+    width: 1344px;
+    gap: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+  &__card {
+    position: relative;
+    width: 318px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 574px;
+    padding: 0 24px 24px;
+
+    &--img {
+      width: 318px;
+      height: 261px;
+      border-radius: 40px 40px 0px 0px;
+    }
+
+    &--title {
+      color:#212529;
+      font-family: e-Ukraine;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+    }
+
+    &--desc {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      &-item {
+        list-style: disc;
+        color:#343A40;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+    }
+
+    &--btn {
+      text-decoration: none;
+      position: absolute;
+      bottom: 24px;
+      color:#FFF;
+      text-align: center;
+      font-family: e-Ukraine;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%;
+      padding: 15px 0 16px;
+      border-radius: 100px;
+      background-color: #4e1ff4;
+      width: 270px;
+    }
+
+    &--reserve {
+      color:#343A40;
+      font-family: e-Ukraine;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 150%;
+      background-color: #F2F4FF;
+      border-radius: 24px;
+      text-align: center;
+      width: 197px;
+      position: absolute;
+      right: 0;
+      top: 430px;
+    }
+  }
+}

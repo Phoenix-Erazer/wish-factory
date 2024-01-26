@@ -1,0 +1,133 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 150px;
+  padding-top: 45px;
+
+  &__top {
+    height: 646px;
+    width: 1116px;
+    margin: 0 auto;
+    border-radius: 24px;
+    display: flex;
+    gap: 24px;
+
+    &--left {
+      width: 546px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &-title {
+        color:#212529;
+        font-family: e-Ukraine;
+        font-size: 60px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        margin-bottom: 32px;
+      }
+
+      &-text {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        width: 546px;
+        color:#343A40;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+    }
+
+    &--right {
+      height: 100%;
+      position: relative;
+
+      &-img1 {
+        position: absolute;
+        top: 88px;
+        left: 460px;
+      }
+
+      &-img2 {
+        position: absolute;
+        left: 378px;
+        top: 186px;
+      }
+
+      &-img3 {
+        position: absolute;
+        top: 400px;
+      }
+    }
+  }
+
+  &__bottom {
+    &--title {
+      color:#212529;
+      font-family: e-Ukraine;
+      font-size: 60px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%;
+      margin-bottom: 60px;
+    }
+    &--top {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    &--wrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &--blocks {
+      display: flex;
+      gap: 24px;
+    }
+
+    &--block {
+      &-title {
+        color:#212529;
+        font-family: e-Ukraine;
+        font-size: 60px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        margin-bottom: 24px;
+      }
+
+      &-text {
+        color:#343A40;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+    }
+
+    &--article {
+      width: 546px;
+      color:#343A40;
+      font-family: e-Ukraine;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 150%;
+      margin-bottom: 60px;
+    }
+
+    &--photo {
+      border-radius: 24px;
+      margin: 0 auto;
+      margin-bottom: 150px;
+    }
+  }
+}

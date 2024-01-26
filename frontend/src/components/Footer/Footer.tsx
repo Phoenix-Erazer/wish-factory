@@ -1,40 +1,51 @@
-import './Footer.scss'
+import './Footer.scss';
 
 export const Footer = () => {
   return (
     <footer className="footer">
-      <section className="adress">
-        <p className="adress__title">Address</p>
-        <article className="adress__path">0200, Kyiv, Ukraine</article>
-        <article className="adress__path">0200, Kyiv, Ukraine</article>
-      </section>
-
-      <section className="adress">
-        <p className="adress__title">Contacts</p>
-        <article className="adress__path">+38 (050) 568-21-22</article>
-        <article className="adress__path">info@wishfactory.org.ua</article>
-        <article className="adress__path">
-          Schedule: Mo-Fr from 9:00 to 18:00
-        </article>
-      </section>
-      <section className="adress">
-        <p className="adress__title">Address</p>
-        <article className="adress__path">0200, Kyiv, Ukraine</article>
-        <article className="adress__path">0200, Kyiv, Ukraine</article>
-        <div className="adress__links">
-          <a className="adress__links--link" href="https://www.linkedin.com/in/dariazayka/">Daria Zaika </a>
-          <a className="adress__links--link" href="https://www.linkedin.com/in/andrii-rashevskyi-908b04261/?locale=uk_UA">
+      <div className="footer__item">
+        <h3 className="footer__item--title">Address</h3>
+        <p className="footer__item--desc">0200, Kyiv, Ukraine</p>
+        <p className="footer__item--desc">85/23 Saksahanskoho street</p>
+      </div>
+      <div className="footer__item">
+        <h3 className="footer__item--title">Contacts</h3>
+        <p className="footer__item--desc">+38 (050) 568-21-22</p>
+        <p className="footer__item--desc">info@wishfactory.org.ua</p>
+        <p className="footer__item--desc">Schedule: Mo-Fr from 9:00 to 18:00</p>
+      </div>
+      <div className="footer__item">
+        <h3 className="footer__item--title">© Wish Factory</h3>
+        <p className="footer__item--desc">
+          Developed on a volunteer basis by a team:
+        </p>
+        <p className="footer__item--desc">
+          <a
+            href="https://www.linkedin.com/in/andrii-rashevskyi-908b04261/?locale=uk_UA"
+            className="footer__item--desc-link"
+          >
             Andrii Rashevskyi
           </a>
-
-          <a className="adress__links--link" href="www.linkedin.com/in/viktor-hrygorash-08636a253">
-            Victor Hryhorash 
+          <a
+            href="https://www.linkedin.com/in/dariazayka/"
+            className="footer__item--desc-link"
+          >
+            Daria Zaika
           </a>
-          <a className="adress__links--link" href="https://www.linkedin.com/in/kateryna-dzhyma">
+          <a
+            href="https://www.linkedin.com/in/kateryna-dzhyma/"
+            className="footer__item--desc-link"
+          >
             Kateryna Dzhyma
           </a>
-        </div>
-      </section>
+          <a
+            href="www.linkedin.com/in/viktor-hrygorash-08636a253"
+            className="footer__item--desc-link"
+          >
+            Viktor Hrygorash
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }

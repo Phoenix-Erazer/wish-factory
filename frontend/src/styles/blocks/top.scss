@@ -1,0 +1,54 @@
+.top {
+  border-radius: 24px;
+  width: 1136px;
+  padding: 100px 114px;
+  display: flex;
+
+  &__left {
+    width: 660px;
+    &--title {
+    font-family: e-Ukraine;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    color: #212529;
+    margin-bottom: 127px;
+    }
+
+    &--button {
+      text-decoration: none;
+      width: 466px;
+      font-family: e-Ukraine;
+      color: #fff;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%;
+      background-color: #4E51FF;
+      padding: 16px 100px;
+      border-radius: 100px;
+    }
+  }
+
+  &__right {
+    position: relative;
+    &--img {
+      &-1 {
+        position: absolute;
+        left: 100px;
+      }
+      &-2 {
+        position: absolute;
+        top: 450px;
+        left: 360px;
+      }
+
+      &-3 {
+        position: absolute;
+        left: 100px;
+        top: 410px;
+      }
+    }
+  }
+}

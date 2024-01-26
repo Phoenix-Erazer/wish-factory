@@ -1,0 +1,188 @@
+.request {
+  &__title {
+    color:#212529;
+    font-family: e-Ukraine;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+    margin-bottom: 60px;
+  }
+
+  &__cards {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 150px;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 432px;
+    &--bottom {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+
+      &-step {
+        color: var(--Gray-80, #343A40);
+        text-align: center;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+        border: 1px solid #24874E;
+        width: 110px;
+        padding: 0 0 8px;
+        border-radius: 24px;
+      }
+
+      &-desc {
+        color:#212529;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+    }
+  }
+
+  &__form {
+    width: 888px;
+    margin: 0 auto;
+
+    &--title {
+      color: #212529;
+      text-align: center;
+      font-family: e-Ukraine;
+      font-size: 60px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%;
+      margin-bottom: 32px;
+    }
+
+    &--subtitle {
+      color:#343A40;
+      font-family: e-Ukraine;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+    }
+
+    &--item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 32px;
+
+      &-title {
+        color:#212529;
+        font-family: e-Ukraine;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+
+      &-select {
+        border: none;
+        border-bottom: 2px solid #212529;
+        color: #212529;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+
+      &-input {
+        border: none;
+        border-bottom: 2px solid #212529;
+        color: #212529;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+
+      &-date {
+        border: none;
+        border-bottom: 2px solid #212529;
+        color: #212529;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+      &-radio {
+        display: flex;
+        align-items: end;
+        gap: 20px;
+        border: none;
+        color: #212529;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+      &-phone {
+        border: none;
+        color: #212529;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+
+      &-clip {
+        width: 0.1px;
+        height: 0.1px;
+      }
+
+      &-photo {
+        color:#212529;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+      }
+
+      &-check {
+        color:#343A40;
+        font-family: e-Ukraine;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 150%;
+        margin-bottom: 60px;
+      }
+    }
+
+    &--submit {
+      width: 100%;
+      color:#FFF;
+      text-align: center;
+      font-family: e-Ukraine;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%;
+      padding: 14px 0 18px;
+      border-radius: 100px;
+      background:#4E51FF;
+      margin-bottom: 150px;
+    }
+  }
+}

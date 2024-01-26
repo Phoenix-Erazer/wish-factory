@@ -1,5 +1,12 @@
+@import './reset';
 @import './fonts';
 
 @import '../components/Header/Header.scss';
-@import '../components/Main/Main.scss';
-
+@import './blocks/fond.scss';
+@import './blocks/top.scss';
+@import './blocks/partners.scss';
+@import './blocks/achieves.scss';
+@import './blocks/wait.scss';
+@import './blocks/donations.scss';
+@import './blocks/questions.scss';
+@import './blocks/about.scss';

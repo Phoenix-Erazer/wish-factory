@@ -1,0 +1,32 @@
+.button {
+  padding: 12px 0 20px;
+  width: 204px;
+  background-color: #4E51FF;
+  border-radius: 100px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+
+  font-family: e-Ukraine;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+
+  &__header {
+      padding: 12px 0 20px;
+      width: 204px;
+      background-color: #4E51FF;
+      border-radius: 100px;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+
+      font-family: e-Ukraine;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%;
+      margin: 0;
+  }
+}
