@@ -6,35 +6,38 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.core.files.uploadedfile import SimpleUploadedFile
 from backend.dream.models import (
-    Dream, Benefactor, Donate, Payment,
-    not_past_date_validator, dream_image_file_path
+    Dream,
+    Benefactor,
+    Donate,
+    Payment,
+    not_past_date_validator,
+    dream_image_file_path,
 )
 
 
 class DreamModelTest(TestCase):
     def setUp(self):
         self.dream_data = {
-            'title': 'Test Dream',
-            'description': 'This is a test dream',
-            'dream_type': 'to-have',
-            'user_name': 'Test User',
-            'user_age': 25,
-            'user_email': 'test@example.com',
-            'user_type': 'requestor',
-            'date': timezone.now().date(),
-            'price': 100.0,
-            'currency': 'USD',
-            'attachment': None,
-            'city': 'Test City',
-            'region': 'Test Region',
-            'status': 'unfulfilled',
-            'is_activated': True,
+            "title": "Test Dream",
+            "description": "This is a test dream",
+            "dream_type": "to-have",
+            "user_name": "Test User",
+            "user_age": 25,
+            "user_email": "test@example.com",
+            "user_type": "requestor",
+            "date": timezone.now().date(),
+            "price": 100.0,
+            "currency": "USD",
+            "attachment": None,
+            "city": "Test City",
+            "region": "Test Region",
+            "status": "unfulfilled",
+            "is_activated": True,
         }
 
     def create_test_dream(self, **kwargs):
         dream_data = {**self.dream_data, **kwargs}
         return Dream.objects.create(**dream_data)
-
 
     def test_dream_image_file_path(self):
         image_file = SimpleUploadedFile(
@@ -68,7 +71,7 @@ class BenefactorModelTest(TestCase):
             email="benefactor@example.com",
             method_of_receipt="personally",
             date_execution=date_execution or timezone.now(),
-            dream=self.dream
+            dream=self.dream,
         )
 
     def setUp(self):
@@ -87,7 +90,7 @@ class BenefactorModelTest(TestCase):
             city="Test City",
             region="Test Region",
             status="unfulfilled",
-            is_activated=True
+            is_activated=True,
         )
 
     def test_benefactor_creation(self):
@@ -105,7 +108,7 @@ class BenefactorModelTest(TestCase):
             not_past_date_validator(benefactor.date_execution)
 
     def test_benefactor_str(self):
-        benefactor = self.create_test_benefactor(date_execution='2024-02-01')
+        benefactor = self.create_test_benefactor(date_execution="2024-02-01")
         expected_str = "Test Benefactor Test Dream"
         self.assertEqual(str(benefactor), expected_str)
 
@@ -116,7 +119,7 @@ class DonateModelTest(TestCase):
         self.assertEqual(str(donate), "1 Donate: 50.0 USD")
 
     def test_donate_str(self):
-        donate = Donate.objects.create(amount=50.0, currency='USD')
+        donate = Donate.objects.create(amount=50.0, currency="USD")
         expected_str = f"{donate.id} Donate: 50.0 USD"
         self.assertEqual(str(donate), expected_str)
 
@@ -138,7 +141,7 @@ class PaymentModelTest(TestCase):
             city="Test City",
             region="Test Region",
             status="unfulfilled",
-            is_activated=True
+            is_activated=True,
         )
 
     def create_test_benefactor(self, dream):
@@ -148,18 +151,14 @@ class PaymentModelTest(TestCase):
             email="benefactor@example.com",
             method_of_receipt="personally",
             date_execution=timezone.now(),
-            dream=dream
+            dream=dream,
         )
 
     def test_payment_creation(self):
         dream = self.create_test_dream()
         benefactor = self.create_test_benefactor(dream)
         payment = Payment.objects.create(
-            executor=benefactor,
-            dream=dream,
-            amount=50.0,
-            currency="USD",
-            success=True
+            executor=benefactor, dream=dream, amount=50.0, currency="USD", success=True
         )
 
         self.assertEqual(str(payment), "1: (True) 50.0 USD")
@@ -168,11 +167,7 @@ class PaymentModelTest(TestCase):
         dream = self.create_test_dream()
         benefactor = self.create_test_benefactor(dream)
         payment = Payment.objects.create(
-            executor=benefactor,
-            dream=dream,
-            amount=30.0,
-            currency='USD',
-            success=True
+            executor=benefactor, dream=dream, amount=30.0, currency="USD", success=True
         )
 
         expected_str = f"{payment.id}: (True) 30.0 USD"
