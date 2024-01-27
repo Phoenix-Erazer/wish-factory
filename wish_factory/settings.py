@@ -26,10 +26,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = [
-    "127.0.0.1", "wish-factory.onrender.com",
-    "wish-factory-docker.onrender.com",
-]
+ALLOWED_HOSTS = ["127.0.0.1", "wish-factory.onrender.com", "wish-factory-docker.onrender.com", "victorgri.github.io",]
 
 # Application definition
 
