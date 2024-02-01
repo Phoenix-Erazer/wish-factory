@@ -1,22 +1,8 @@
 from rest_framework import serializers
-from drf_extra_fields.fields import Base64ImageField
 from .models import Dream, Benefactor, Payment, Donate
 
 
-# class DreamSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Dream
-#         fields = (
-#             "id", "title", "description", "dream_type", "user_name",
-#             "user_age", "user_email", "user_type", "date", "price",
-#             "currency", "attachment", "city", "region", "status",
-#             "is_activated",
-#         )
-
-
 class DreamSerializer(serializers.ModelSerializer):
-    attachment = Base64ImageField(required=False)
-
     class Meta:
         model = Dream
         fields = (
