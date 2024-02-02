@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
 # ALLOWED_HOSTS = ["127.0.0.1", "wish-factory.onrender.com", "wish-factory-docker.onrender.com", "victorgri.github.io/wish_demo",]
-ALLOWED_HOSTS = ["*" ]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -168,6 +168,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:9000",
     "http://localhost:5173",
+    "https://victorgri.github.io/wish_demo/",
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
