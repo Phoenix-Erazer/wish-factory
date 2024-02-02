@@ -26,8 +26,13 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = ["127.0.0.1", "wish-factory.onrender.com", "wish-factory-docker.onrender.com", "victorgri.github.io/wish_demo",]
-# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "wish-factory.onrender.com",
+    "wish-factory-docker.onrender.com",
+    "victorgri.github.io/wish_demo",
+]
+
 
 # Application definition
 
@@ -98,11 +103,9 @@ DATABASES = {
 # }
 
 
-#dj-database-url
+# dj-database-url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
-
-
 
 
 # Password validation
@@ -153,12 +156,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    # "DEFAULT_PERMISSION_CLASSES": [
-    #     "rest_framework.permissions.IsAuthenticated",
-    # ],
-    # "DEFAULT_AUTHENTICATION_CLASSES": (
-    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
-    # ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"
 }
 

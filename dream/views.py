@@ -9,7 +9,7 @@ from .serializers import (
     DreamSerializer,
     BenefactorSerializer,
     PaymentSerializer,
-    DonateSerializer
+    DonateSerializer,
 )
 
 
@@ -68,7 +68,9 @@ class BenefactorViewSet(viewsets.ModelViewSet):
 
         original_instance = Benefactor.objects.get(pk=instance.pk)
 
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer = self.get_serializer(
+            instance, data=request.data, partial=partial
+        )
         serializer.is_valid(raise_exception=True)
 
         self.perform_update(serializer)
