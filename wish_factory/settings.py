@@ -168,7 +168,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:9000",
     "http://localhost:5173",
-    "https://victorgri.github.io/wish_demo",
+    "https://victorgri.github.io",
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
