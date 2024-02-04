@@ -5,9 +5,8 @@ from rest_framework import status
 from dream.models import Dream, Benefactor, Payment
 
 
-class DreamViewSetTestCase(TestCase):
+class DreamViewSetTestCase(APIClient):
     def setUp(self):
-        self.client = APIClient()
         self.dream_data = {
             "title": "My Dream",
             "description": "My dream to come true",

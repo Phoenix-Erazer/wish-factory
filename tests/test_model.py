@@ -99,7 +99,11 @@ class BenefactorModelTest(TestCase):
 
     def test_not_past_date_validator(self):
         benefactor = self.create_test_benefactor()
-        self.assertIsNone(not_past_date_validator(benefactor.date_execution))
+
+        with self.assertRaises(ValidationError) as context:
+            not_past_date_validator(benefactor.date_execution)
+
+        self.assertEqual(context.exception.messages, ["Date cannot be in the past"])
 
     def test_not_past_date_validator_raises_error(self):
         past_date = timezone.now() - timezone.timedelta(days=1)

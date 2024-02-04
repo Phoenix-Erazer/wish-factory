@@ -48,7 +48,7 @@ def dream_image_file_path(instance, filename):
 class Dream(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=500)
-    dream_type = models.CharField(max_length=20, choices=DREAM_TYPE_CHOICES)
+    dream_type = models.CharField(max_length=20, default="requestor", choices=DREAM_TYPE_CHOICES)
     user_name = models.CharField(max_length=255, blank=True, null=True)
     user_age = models.IntegerField()
     user_email = models.EmailField(blank=True, null=True)

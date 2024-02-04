@@ -10,10 +10,13 @@ from .views import (
 
 router = routers.DefaultRouter()
 router.register(r"dreams", DreamViewSet, basename="dream")
-router.register("benefactors", BenefactorViewSet)
-router.register("payment", PaymentViewSet)
-router.register("donate", DonateViewSet)
+router.register(r"benefactors", BenefactorViewSet)
+router.register(r"payments", PaymentViewSet)
+router.register(r"donates", DonateViewSet)
 
-urlpatterns = [path("", include(router.urls)), ]
+urlpatterns = [
+    path("", include(router.urls)),
+    path("handle_dream/", DreamViewSet.as_view({'post': 'handle_dream'}), name='handle_dream')
+]
 
 app_name = "dream"
