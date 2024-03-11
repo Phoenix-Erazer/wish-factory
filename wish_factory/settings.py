@@ -167,6 +167,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:9000",
     "http://localhost:5173",
     "https://victorgri.github.io",
+    "https://wish-factory-frontend-1.onrender.com"
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
